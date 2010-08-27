@@ -4,8 +4,8 @@ A clone of Atari's 1979 hit, Asteroids.
 
 == History
 
-Originally created to facilitate a Gosu training at the Lone Star Ruby Conference 2010 called Ruby Intrigue presented by Intridea. The original class can be found here: http://github.com/intridea/ruby_intrigue
+Originally created to facilitate a Gosu training at the Lone Star Ruby Conference 2010 called Ruby Intrigue (presented by Intridea). The original class can be found here: http://github.com/intridea/ruby_intrigue
 
 == Credits
 
-  Adam Bair
+Adam Bair

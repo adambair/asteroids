@@ -26,10 +26,10 @@ class Asteroid
   end
 
   def move
-    @x += @speed_modifier*Math.sin(Math::PI/180*@angle)
-    @y += -@speed_modifier*Math.cos(Math::PI/180*@angle)
-    @x %= 640
-    @y %= 480
+    @x += Gosu::offset_x(@angle, @speed_modifier)
+    @y -= Gosu::offset_y(@angle, @speed_modifier)
+    @x %= @window.width
+    @y %= @window.height
   end
 
   def hitbox

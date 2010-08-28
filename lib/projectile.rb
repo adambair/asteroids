@@ -1,5 +1,6 @@
 class Projectile
   def initialize(window, origin_object)
+    @window = window
     @image = Gosu::Image.new(window, 'assets/projectile.png', false)
     @x, @y = origin_object.x, origin_object.y
     @angle = origin_object.angle
@@ -15,10 +16,10 @@ class Projectile
   def move
     @distance_traveled += 1
     kill if @distance_traveled > @max_distance
-    @x += @speed_modifier*Math.sin(Math::PI/180*@angle)
-    @y += -@speed_modifier*Math.cos(Math::PI/180*@angle)
-    @x %= 640
-    @y %= 480
+    @x += Gosu::offset_x(@angle, @speed_modifier)
+    @y -= Gosu::offset_y(180+@angle, @speed_modifier)
+    @x %= @window.width
+    @y %= @window.height
   end
 
   def kill

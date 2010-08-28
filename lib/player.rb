@@ -2,12 +2,10 @@ class Player
   attr_accessor :x, :y, :angle, :lives, :score
 
   def initialize(window)
-    @score = 0
-    @lives = 3
+    @window = window
+    @score, @lives = 0, 3
     @image = Gosu::Image.new(window, 'assets/ship.png', false)
-    @velocity_x = @velocity_y = @angle = 0.0
-    @x, @y = 320, 240
-    @alive = true
+    warp
   end
 
   def draw
@@ -30,8 +28,8 @@ class Player
   def move
     @x += @velocity_x
     @y += @velocity_y
-    @x %= 640
-    @y %= 480
+    @x %= @window.width
+    @y %= @window.height
     @velocity_x *= 1
     @velocity_y *= 1
   end
@@ -47,9 +45,9 @@ class Player
     !@alive
   end
   
-  def warp(x=320, y=240)
+  def warp
     @velocity_x = @velocity_y = @angle = 0.0
-    @x, @y = x, y
+    @x, @y = @window.width/2, @window.height/2
     @alive = true
   end
 

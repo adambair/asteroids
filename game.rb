@@ -16,10 +16,10 @@ class GameWindow < Gosu::Window
     @life_image = Gosu::Image.new(self, "assets/ship.png", false)
     @font = Gosu::Font.new(self, 'Inconsolata-dz', 24)
     @game_in_progress = false
-    title_screen
+    setup_asteroid_for_title_screen
   end
 
-  def title_screen
+  def setup_asteroid_for_title_screen
     @asteroids = Asteroid.spawn(self, 4)
     @asteroids += @asteroids[0].kill
     @asteroids += @asteroids[1].kill
@@ -76,26 +76,27 @@ class GameWindow < Gosu::Window
   def draw
     # @background_image.draw(0, 0, 0)
     @asteroids.each{|asteroid| asteroid.draw}
-
-    unless @game_in_progress
-      @font.draw("ASTEROIDS", 175, 120, 50, 2.8, 2.8, WHITE)
-      @font.draw("press 's' to start", 210, 320, 50, 1, 1, WHITE)
-      @font.draw("press 'q' to quit", 216, 345, 50, 1, 1, WHITE)
-    end
+    render_title_text unless @game_in_progress
     return unless @game_in_progress
-
-    if @player.lives <= 0
-      @font.draw("GAME OVER", 200, 150, 50, 2.0, 2.0, WHITE)
-      @font.draw("press 'r' to restart", 195, 320, 50, 1, 1, WHITE)
-      @font.draw("press 'q' to quit", 210, 345, 50, 1, 1, WHITE)
-    end
-    
+    render_game_over_text if @player.lives <= 0
     @player.draw unless @player.dead?
     @projectiles.each{|projectile| projectile.draw}
     draw_lives
     @font.draw(@player.score, 10, 10, 50, 1.0, 1.0, WHITE)
     @font.draw(@level, 610, 10, 50, 1.0, 1.0, WHITE)
   end 
+
+  def render_title_text
+    @font.draw("ASTEROIDS", 175, 120, 50, 2.8, 2.8, WHITE)
+    @font.draw("press 's' to start", 210, 320, 50, 1, 1, WHITE)
+    @font.draw("press 'q' to quit", 216, 345, 50, 1, 1, WHITE)
+  end
+
+  def render_game_over_text
+    @font.draw("GAME OVER", 200, 150, 50, 2.0, 2.0, WHITE)
+    @font.draw("press 'r' to restart", 195, 320, 50, 1, 1, WHITE)
+    @font.draw("press 'q' to quit", 210, 345, 50, 1, 1, WHITE)
+  end
 
   def draw_lives
     return unless @player.lives > 0

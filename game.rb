@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby -w
 
-require 'lib/gosu.for_1_8.bundle'
+require 'rubygems'
+require 'gosu'
+
 require 'lib/player'
 require 'lib/asteroid'
 require 'lib/projectile'

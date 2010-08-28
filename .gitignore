@@ -1,2 +1,3 @@
 .DS_Store
 lib/gosu.for_1_8.bundle
+tmp/*

@@ -8,9 +8,11 @@ require 'lib/asteroid'
 require 'lib/projectile'
 
 class GameWindow < Gosu::Window
+  WHITE = 0xffffffff
+
   def initialize
     super(640, 480, false)
-    @background_image = Gosu::Image.new(self, "assets/background.png", true)
+    # @background_image = Gosu::Image.new(self, "assets/background.png", true)
     @life_image = Gosu::Image.new(self, "assets/ship.png", false)
     @font = Gosu::Font.new(self, 'Inconsolata-dz', 24)
     @game_in_progress = false
@@ -72,27 +74,27 @@ class GameWindow < Gosu::Window
 
   # happens immediately after each iteration of the update method
   def draw
-    @background_image.draw(0, 0, 0)
+    # @background_image.draw(0, 0, 0)
     @asteroids.each{|asteroid| asteroid.draw}
 
     unless @game_in_progress
-      @font.draw("ASTEROIDS", 175, 120, 50, 2.8, 2.8, 0xffffffff)
-      @font.draw("press 's' to start", 210, 320, 50, 1, 1, 0xffffffff)
-      @font.draw("press 'q' to quit", 216, 345, 50, 1, 1, 0xffffffff)
+      @font.draw("ASTEROIDS", 175, 120, 50, 2.8, 2.8, WHITE)
+      @font.draw("press 's' to start", 210, 320, 50, 1, 1, WHITE)
+      @font.draw("press 'q' to quit", 216, 345, 50, 1, 1, WHITE)
     end
     return unless @game_in_progress
 
     if @player.lives <= 0
-      @font.draw("GAME OVER", 200, 150, 50, 2.0, 2.0, 0xffffffff)
-      @font.draw("press 'r' to restart", 195, 320, 50, 1, 1, 0xffffffff)
-      @font.draw("press 'q' to quit", 210, 345, 50, 1, 1, 0xffffffff)
+      @font.draw("GAME OVER", 200, 150, 50, 2.0, 2.0, WHITE)
+      @font.draw("press 'r' to restart", 195, 320, 50, 1, 1, WHITE)
+      @font.draw("press 'q' to quit", 210, 345, 50, 1, 1, WHITE)
     end
     
     @player.draw unless @player.dead?
     @projectiles.each{|projectile| projectile.draw}
     draw_lives
-    @font.draw(@player.score, 10, 10, 50, 1.0, 1.0, 0xffffffff)
-    @font.draw(@level, 610, 10, 50, 1.0, 1.0, 0xffffffff)
+    @font.draw(@player.score, 10, 10, 50, 1.0, 1.0, WHITE)
+    @font.draw(@level, 610, 10, 50, 1.0, 1.0, WHITE)
   end 
 
   def draw_lives

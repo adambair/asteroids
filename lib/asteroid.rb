@@ -13,16 +13,7 @@ class Asteroid
   end
 
   def points
-    case @size
-      when 'large'
-        20
-      when 'medium'
-        50
-      when 'small'
-        100
-      else
-        0
-    end
+    {'large' => 20, 'medium' => 50, 'small' => 100}[@size]
   end
 
   def move

@@ -5,11 +5,13 @@ class Asteroid
     @image = Gosu::Image.new(window, "assets/asteroid-#{size}-1.png", false)
     @x, @y, @angle = rand(640), rand(480), rand(360)
     @speed_modifier = 1.5
+    @angular_velocity = (rand(0) - rand(0))/3
+    @draw_angle = rand(360)
     @alive = true
   end
 
   def draw
-    @image.draw_rot(@x, @y, 0, @angle)
+    @image.draw_rot(@x, @y, 0, @draw_angle) 
   end
 
   def points
@@ -21,6 +23,7 @@ class Asteroid
     @y -= Gosu::offset_y(@angle, @speed_modifier)
     @x %= @window.width
     @y %= @window.height
+    @draw_angle += @angular_velocity
   end
 
   def hitbox

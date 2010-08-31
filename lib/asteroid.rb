@@ -20,7 +20,7 @@ class Asteroid
 
   def move
     @x += Gosu::offset_x(@angle, @speed_modifier)
-    @y -= Gosu::offset_y(@angle, @speed_modifier)
+    @y += Gosu::offset_y(@angle, @speed_modifier)
     @x %= @window.width
     @y %= @window.height
     @draw_angle += @angular_velocity

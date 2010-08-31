@@ -3,7 +3,7 @@ class Asteroid
     @window = window
     @size = size
     @image = Gosu::Image.new(window, "assets/asteroid-#{size}-1.png", false)
-    @x, @y, @angle = rand(640), rand(480), rand(360)
+    @x, @y, @angle = @window.width, @window.height, rand(360)
     @speed_modifier = 1.5
     @angular_velocity = (rand(0) - rand(0))/3
     @draw_angle = rand(360)

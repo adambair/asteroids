@@ -16,8 +16,8 @@ class Projectile
   def move
     @distance_traveled += 1
     kill if @distance_traveled > @max_distance
-    @x += Gosu::offset_x(@angle, @speed_modifier)
-    @y -= Gosu::offset_y(180+@angle, @speed_modifier)
+    @x += Gosu::offset_x(180-@angle, @speed_modifier)
+    @y += Gosu::offset_y(@angle, @speed_modifier)
     @x %= @window.width
     @y %= @window.height
   end

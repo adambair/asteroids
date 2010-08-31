@@ -34,21 +34,19 @@ class Asteroid
 
   def kill
     @alive = false
-    smash
+    fragment
   end
 
-  def smash
-    asteroids = case @size
-      when 'large'
-        speed = 2
-        2.times.collect{Asteroid.new(@window, 'medium')}
-      when 'medium'
-        speed = 2.5
-        2.times.collect{Asteroid.new(@window, 'small')}
-      else
-        []
-    end
+  def fragment
+    return [] unless next_size
+    asteroids = 2.times.collect{Asteroid.new(@window, next_size)}
+    speed = next_size == 'large' ? 2 : 2.5
     asteroids.collect {|asteroid| asteroid.setup(@x, @y, rand(0)*speed+0.5) }
+  end
+
+  def next_size
+    return if @size == 'small'
+    @size == 'large' ? 'medium' : 'small'
   end
 
   def setup(x, y, speed)

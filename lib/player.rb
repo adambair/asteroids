@@ -5,6 +5,7 @@ class Player
     @window = window
     @score, @lives = 0, 3
     @image = Gosu::Image.new(window, 'assets/ship.png', false)
+    @speed_modifier = 0.18
     warp
   end
 
@@ -21,8 +22,8 @@ class Player
   end
 
   def accelerate
-    @velocity_x += Gosu::offset_x(@angle, 0.18)
-    @velocity_y += Gosu::offset_y(@angle, 0.18)
+    @velocity_x += Gosu::offset_x(@angle, @speed_modifier)
+    @velocity_y += Gosu::offset_y(@angle, @speed_modifier)
   end
 
   def move

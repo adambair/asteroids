@@ -16,10 +16,10 @@ class GameWindow < Gosu::Window
     @life_image = Gosu::Image.new(self, "assets/ship.png", false)
     @font = Gosu::Font.new(self, 'Inconsolata-dz', 24)
     @game_in_progress = false
-    setup_asteroid_for_title_screen
+    title_screen
   end
 
-  def setup_asteroid_for_title_screen
+  def title_screen
     @asteroids = Asteroid.spawn(self, 4)
     @asteroids += @asteroids[0].kill
     @asteroids += @asteroids[1].kill

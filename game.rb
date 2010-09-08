@@ -52,8 +52,9 @@ class GameWindow < Gosu::Window
     @asteroids.reject!{|asteroid| asteroid.dead?}
 
     return unless @game_in_progress
+    return if @player.dead?
 
-    control_player unless @player.dead?
+    control_player
 
     @player.move
 
@@ -74,23 +75,32 @@ class GameWindow < Gosu::Window
   def draw
     # @background_image.draw(0, 0, 0)
     @asteroids.each{|asteroid| asteroid.draw}
-    render_title_text unless @game_in_progress
+    title_text unless @game_in_progress
     return unless @game_in_progress
-    render_game_over_text if @player.lives <= 0
-    @player.draw unless @player.dead?
+    game_over_text if @player.lives <= 0
+    score_text
+    level_text
+    return if @player.dead?
+    @player.draw
     @projectiles.each{|projectile| projectile.draw}
     draw_lives
-    @font.draw(@player.score, 10, 10, 50, 1.0, 1.0, WHITE)
-    @font.draw(@level, 610, 10, 50, 1.0, 1.0, WHITE)
   end 
 
-  def render_title_text
+  def score_text
+    @font.draw(@player.score, 10, 10, 50, 1.0, 1.0, WHITE)
+  end
+
+  def level_text
+    @font.draw(@level, 610, 10, 50, 1.0, 1.0, WHITE)
+  end
+
+  def title_text
     @font.draw("ASTEROIDS", 175, 120, 50, 2.8, 2.8, WHITE)
     @font.draw("press 's' to start", 210, 320, 50, 1, 1, WHITE)
     @font.draw("press 'q' to quit", 216, 345, 50, 1, 1, WHITE)
   end
 
-  def render_game_over_text
+  def game_over_text
     @font.draw("GAME OVER", 200, 150, 50, 2.0, 2.0, WHITE)
     @font.draw("press 'r' to restart", 195, 320, 50, 1, 1, WHITE)
     @font.draw("press 'q' to quit", 210, 345, 50, 1, 1, WHITE)
@@ -107,8 +117,9 @@ class GameWindow < Gosu::Window
 
   def button_down(id)
     close if id == Gosu::KbQ
+
     if id == Gosu::KbSpace
-      @projectiles << Projectile.new(self, @player) unless @player.dead?
+      @projectiles << @player.shoot
     end
   end
 

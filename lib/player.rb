@@ -1,5 +1,5 @@
 class Player
-  attr_accessor :x, :y, :angle, :lives, :score
+  attr_accessor :x, :y, :angle, :lives, :score, :velocity_x, :velocity_y
 
   def initialize(window)
     @window = window
@@ -50,6 +50,10 @@ class Player
     @velocity_x = @velocity_y = @angle = 0.0
     @x, @y = @window.width/2, @window.height/2
     @alive = true
+  end
+
+  def shoot
+    Projectile.new(@window, self) unless dead?
   end
 
   def hitbox

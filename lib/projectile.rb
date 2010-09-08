@@ -2,10 +2,13 @@ class Projectile
   def initialize(window, origin_object)
     @window = window
     @image = Gosu::Image.new(window, 'assets/projectile.png', false)
-    @x, @y = origin_object.x, origin_object.y
-    @angle = origin_object.angle
+
+    @origin_object = origin_object
+    @x, @y = @origin_object.x, @origin_object.y
+    @angle = @origin_object.angle
+
+    @time_in_existence, @max_time = 0, 30
     @speed_modifier = 7
-    @distance_traveled, @max_distance = 0, 50
     @alive = true
   end
 
@@ -14,10 +17,9 @@ class Projectile
   end
 
   def move
-    @distance_traveled += 1
-    kill if @distance_traveled > @max_distance
-    @x += Gosu::offset_x(180-@angle, @speed_modifier)
-    @y += Gosu::offset_y(@angle, @speed_modifier)
+    verify_existence
+    @x += offset_x
+    @y -= offset_y
     @x %= @window.width
     @y %= @window.height
   end
@@ -35,4 +37,19 @@ class Projectile
     hitbox_y = ((@y - @image.width/2).to_i..(@y + @image.width/2).to_i).to_a
     {:x => hitbox_x, :y => hitbox_y}
   end
+
+  private 
+
+    def verify_existence
+      kill if @time_in_existence > @max_time
+      @time_in_existence += 1
+    end
+
+    def offset_x
+      Gosu::offset_x(@angle, @speed_modifier + @origin_object.velocity_x.abs)
+    end
+
+    def offset_y
+      Gosu::offset_y(180+@angle, @speed_modifier + @origin_object.velocity_y.abs)
+    end
 end

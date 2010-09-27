@@ -39,7 +39,7 @@ class Asteroid
 
   def fragment
     return [] unless next_size
-    asteroids = 2.times.collect{Asteroid.new(@window, next_size)}
+    asteroids = Array.new(2) { Asteroid.new(@window, next_size) }
     speed = next_size == 'large' ? 2 : 2.5
     asteroids.collect {|asteroid| asteroid.setup(@x, @y, rand(0)*speed+0.5) }
   end

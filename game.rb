@@ -35,10 +35,6 @@ class GameWindow < Gosu::Window
 
   # 60 times per second
   def update
-    if button_down? Gosu::KbQ
-      close
-    end
-
     if button_down? Gosu::KbS
       setup_game unless @game_in_progress
     end

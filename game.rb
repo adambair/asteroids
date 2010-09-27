@@ -1,9 +1,9 @@
 require 'rubygems'
 require 'gosu'
 
-require 'lib/player'
-require 'lib/asteroid'
-require 'lib/projectile'
+require './lib/player'
+require './lib/asteroid'
+require './lib/projectile'
 
 class GameWindow < Gosu::Window
   WHITE = 0xffffffff

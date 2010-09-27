@@ -1,12 +1,14 @@
 class Asteroid
   include Collidable
 
-  def initialize(window, size='large')
+  def initialize(window, options = {})
     @window = window
-    @size = size
-    @image = Gosu::Image.new(window, "assets/asteroid-#{size}-1.png", false)
-    @x, @y, @angle = rand(@window.width), rand(@window.height), rand(360)
-    @speed_modifier = 1.5
+    @size = options[:size] || 'large'
+    @image = Gosu::Image.new(window, "assets/asteroid-#{@size}-1.png", false)
+    @x = options[:x] || rand(@window.width)
+    @y = options[:y] || rand(@window.height)
+    @angle = rand(360)
+    @speed_modifier = options[:speed] || 1.5
     @angular_velocity = (rand(0) - rand(0))/3
     @draw_angle = rand(360)
     @alive = true
@@ -35,19 +37,17 @@ class Asteroid
 
   def fragment
     return [] unless next_size
-    asteroids = Array.new(2) { Asteroid.new(@window, next_size) }
-    asteroids.collect {|asteroid| asteroid.setup(@x, @y, rand(0)*2.5+0.5) }
+    Array.new(2) do
+      Asteroid.new(@window, :x => @x,
+                            :y => @y,
+                            :size => next_size,
+                            :speed => rand(0)*2.5+0.5)
+    end
   end
 
   def next_size
     return if @size == 'small'
     @size == 'large' ? 'medium' : 'small'
-  end
-
-  def setup(x, y, speed)
-    @x, @y, @speed_modifier = x, y, speed
-    @angle = rand(360)
-    self
   end
 
   def dead?

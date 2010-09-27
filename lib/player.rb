@@ -1,4 +1,6 @@
 class Player
+  include Collidable
+
   attr_accessor :x, :y, :angle, :lives, :score, :velocity_x, :velocity_y
 
   def initialize(window)
@@ -54,11 +56,5 @@ class Player
 
   def shoot
     Projectile.new(@window, self) unless dead?
-  end
-
-  def hitbox
-    hitbox_x = ((@x - @image.width/2).to_i..(@x + @image.width/2.to_i)).to_a
-    hitbox_y = ((@y - @image.width/2).to_i..(@y + @image.width/2).to_i).to_a
-    {:x => hitbox_x, :y => hitbox_y}
   end
 end

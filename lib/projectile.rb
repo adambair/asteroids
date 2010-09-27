@@ -1,4 +1,6 @@
 class Projectile
+  include Collidable
+
   def initialize(window, origin_object)
     @window = window
     @image = Gosu::Image.new(window, 'assets/projectile.png', false)
@@ -30,12 +32,6 @@ class Projectile
 
   def dead?
     !@alive
-  end
-
-  def hitbox
-    hitbox_x = ((@x - @image.width/2).to_i..(@x + @image.width/2.to_i)).to_a
-    hitbox_y = ((@y - @image.width/2).to_i..(@y + @image.width/2).to_i).to_a
-    {:x => hitbox_x, :y => hitbox_y}
   end
 
   private 

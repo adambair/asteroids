@@ -1,4 +1,6 @@
 class Asteroid
+  include Collidable
+
   def initialize(window, size='large')
     @window = window
     @size = size
@@ -24,12 +26,6 @@ class Asteroid
     @x %= @window.width
     @y %= @window.height
     @draw_angle += @angular_velocity
-  end
-
-  def hitbox
-    hitbox_x = ((@x - @image.width/2).to_i..(@x + @image.width/2.to_i)).to_a
-    hitbox_y = ((@y - @image.width/2).to_i..(@y + @image.width/2).to_i).to_a
-    {:x => hitbox_x, :y => hitbox_y}
   end
 
   def kill

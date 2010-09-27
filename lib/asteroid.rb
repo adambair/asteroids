@@ -60,6 +60,6 @@ class Asteroid
   end
 
   def self.spawn(window, count=3)
-    count.times.collect{Asteroid.new(window)}
+    Array.new(count) { Asteroid.new(window) }
   end
 end

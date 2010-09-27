@@ -26,7 +26,7 @@ class GameWindow < Gosu::Window
   end
 
   def title_screen
-    @asteroids = Asteroid.spawn(self, 4)
+    @asteroids = spawn_asteroids(4)
     @asteroids += @asteroids[0].kill
     @asteroids += @asteroids[1].kill
     @asteroids += @asteroids.last.kill
@@ -36,7 +36,7 @@ class GameWindow < Gosu::Window
     @player = Player.new(self)
     @level = 1
     @asteroid_count = 3
-    @asteroids = Asteroid.spawn(self, @asteroid_count)
+    @asteroids = spawn_asteroids(@asteroid_count)
     @projectiles = []
     @game_in_progress = true
   end
@@ -72,7 +72,7 @@ class GameWindow < Gosu::Window
   def next_level
     @asteroid_count += 1
     @level += 1
-    @asteroids = Asteroid.spawn(self, @asteroid_count)
+    @asteroids = spawn_asteroids(@asteroid_count)
   end
 
   # happens immediately after each iteration of the update method
@@ -161,6 +161,10 @@ class GameWindow < Gosu::Window
     common_x = hitbox_1[:x] & hitbox_2[:x]
     common_y = hitbox_1[:y] & hitbox_2[:y]
     common_x.size > 0 && common_y.size > 0 
+  end
+
+  def spawn_asteroids(count=3)
+    Array.new(count) { Asteroid.new(self) }
   end
 end
 

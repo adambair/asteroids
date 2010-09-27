@@ -53,8 +53,4 @@ class Asteroid
   def dead?
     !@alive
   end
-
-  def self.spawn(window, count=3)
-    Array.new(count) { Asteroid.new(window) }
-  end
 end

@@ -8,7 +8,7 @@ class Asteroid
     @x = options[:x] || rand(@window.width)
     @y = options[:y] || rand(@window.height)
     @angle = rand(360)
-    @speed_modifier = options[:speed] || 1.5
+    @speed_modifier = options[:speed] || 0.7
     @angular_velocity = (rand(0) - rand(0))/3
     @draw_angle = rand(360)
     @alive = true
@@ -37,11 +37,12 @@ class Asteroid
 
   def fragment
     return [] unless next_size
-    Array.new(2) do
-      Asteroid.new(@window, :x => @x,
-                            :y => @y,
+    speed = next_size == 'large' ? 1.5 : 2
+    asteroids = Array.new(2) do
+      Asteroid.new(@window, :x => @x, 
+                            :y => @y, 
                             :size => next_size,
-                            :speed => rand(0)*2.5+0.5)
+                            :speed => rand(0)*speed+0.3) 
     end
   end
 

@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'gosu'
 
-require 'lib/game_object'
+require 'lib/collidable'
 require 'lib/player'
 require 'lib/asteroid'
 require 'lib/projectile'

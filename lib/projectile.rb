@@ -1,4 +1,6 @@
-class Projectile < GameObject
+class Projectile
+  include Collidable
+
   def initialize(window, origin_object)
     @window = window
     @image = Gosu::Image.new(window, 'assets/projectile.png', false)

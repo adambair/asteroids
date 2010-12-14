@@ -1,6 +1,4 @@
-class Asteroid
-  include Collidable
-
+class Asteroid < GameObject
   def initialize(window, options = {})
     @window = window
     @size = options[:size] || 'large'

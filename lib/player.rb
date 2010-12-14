@@ -1,6 +1,4 @@
-class Player
-  include Collidable
-
+class Player < GameObject
   attr_accessor :x, :y, :angle, :lives, :score, :velocity_x, :velocity_y
 
   def initialize(window)

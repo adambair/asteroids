@@ -16,11 +16,11 @@ class Player
   end
 
   def turn_left
-    @angle -= 4
+    @angle -= 3.8
   end
 
   def turn_right
-    @angle += 4
+    @angle += 3.8
   end
 
   def accelerate

@@ -108,7 +108,7 @@ class GameWindow < Gosu::Window
     close if id == Gosu::KbQ
 
     if id == Gosu::KbSpace
-      @projectiles << @player.shoot
+      @projectiles << @player.shoot unless @projectiles.size >= 5
     end
   end
 

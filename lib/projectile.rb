@@ -9,8 +9,8 @@ class Projectile
     @x, @y = @origin_object.x, @origin_object.y
     @angle = @origin_object.angle
 
-    @time_in_existence, @max_time = 0, 40
-    @speed_modifier = 7
+    @time_in_existence, @max_time = 0, 70
+    @speed_modifier = 4
     @alive = true
   end
 

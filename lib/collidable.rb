@@ -1,7 +1,10 @@
 module Collidable
   def hitbox
-    { :x => ((@x - half_size).to_i..(@x + half_size).to_i).to_a,
-      :y => ((@y - half_size).to_i..(@y + half_size).to_i).to_a }
+    { :x => calculate(@x), :y => calculate(@y) }
+  end
+  
+  def calculate num
+    ((num - half_size).to_i..(num + half_size).to_i).to_a
   end
   
   def half_size

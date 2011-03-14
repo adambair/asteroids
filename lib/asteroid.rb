@@ -1,6 +1,8 @@
 class Asteroid
   include Collidable
 
+  attr_reader :size
+
   def initialize(window, options = {})
     @window = window
     @size = options[:size] || 'large'
@@ -16,10 +18,6 @@ class Asteroid
 
   def draw
     @image.draw_rot(@x, @y, 0, @draw_angle) 
-  end
-
-  def points
-    {'large' => 20, 'medium' => 50, 'small' => 100}[@size]
   end
 
   def move

@@ -1,4 +1,8 @@
 class GameWindow < Gosu::Window
+  POINTS = { 'large'  => 20,
+             'medium' => 50,
+             'small'  => 100 }
+  
   def initialize
     super(640, 480, true)
     # @background_image = Gosu::Image.new(self, "assets/background.png", true)
@@ -137,7 +141,7 @@ class GameWindow < Gosu::Window
       @projectiles.each do |projectile|
         if asteroid.collides_with?(projectile)
           projectile.kill
-          @score += asteroid.points
+          @score += POINTS[asteroid.size]
           @asteroids += asteroid.kill
         end        
       end

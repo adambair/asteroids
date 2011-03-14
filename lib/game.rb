@@ -1,6 +1,4 @@
 class GameWindow < Gosu::Window
-  WHITE = 0xffffffff
-
   def initialize
     super(640, 480, true)
     # @background_image = Gosu::Image.new(self, "assets/background.png", true)
@@ -76,23 +74,27 @@ class GameWindow < Gosu::Window
   end 
 
   def score_text
-    @font.draw(@player.score, 10, 10, 50, 1.0, 1.0, WHITE)
+    write @player.score, 10, 10
   end
 
   def level_text
-    @font.draw(@level, 610, 10, 50, 1.0, 1.0, WHITE)
+    write @level, 610, 10
   end
 
   def title_text
-    @font.draw("ASTEROIDS", 175, 120, 50, 2.8, 2.8, WHITE)
-    @font.draw("press 's' to start", 210, 320, 50, 1, 1, WHITE)
-    @font.draw("press 'q' to quit", 216, 345, 50, 1, 1, WHITE)
+    write "ASTEROIDS", 175, 120, 2.8, 2.8
+    write "press 's' to start", 210, 320
+    write "press 'q' to quit", 216, 345
   end
 
   def game_over_text
-    @font.draw("GAME OVER", 200, 150, 50, 2.0, 2.0, WHITE)
-    @font.draw("press 'r' to restart", 195, 320, 50, 1, 1, WHITE)
-    @font.draw("press 'q' to quit", 210, 345, 50, 1, 1, WHITE)
+    write "GAME OVER", 200, 150, 2, 2
+    write "press 'r' to restart", 195, 320
+    write "press 'q' to quit", 210, 345
+  end
+
+  def write text, x, y, factor_x = 1, factor_y = 1
+    @font.draw(text, x, y, 50, factor_x, factor_y, Gosu::Color::WHITE)
   end
 
   def draw_lives

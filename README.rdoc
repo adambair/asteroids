@@ -20,8 +20,8 @@ A clone of Atari's 1979 hit, Asteroids.
 * Speed up smaller asteroids
 * Add streaking (like the classic vector arcade)
 * Add pulsating projectile (much brighter than everything else, more exciting - classic arcade)
-* Make ship bleed off speed (like the arcade)
 * Make projectile life distance based rather than game loop time
+* Graphics should be smaller
 
 == Contributions
 

@@ -18,6 +18,7 @@ class GameWindow < Gosu::Window
   def setup_game
     @player = Player.new(self)
     @level = 1
+    @score = 0
     @asteroid_count = 3
     @asteroids = spawn_asteroids(@asteroid_count)
     @projectiles = []
@@ -74,7 +75,7 @@ class GameWindow < Gosu::Window
   end 
 
   def score_text
-    write @player.score, 10, 10
+    write @score, 10, 10
   end
 
   def level_text
@@ -136,7 +137,7 @@ class GameWindow < Gosu::Window
       @projectiles.each do |projectile|
         if asteroid.collides_with?(projectile)
           projectile.kill
-          @player.score += asteroid.points
+          @score += asteroid.points
           @asteroids += asteroid.kill
         end        
       end

@@ -1,11 +1,11 @@
 class Player
   include Collidable
 
-  attr_accessor :x, :y, :angle, :lives, :score, :velocity_x, :velocity_y
+  attr_accessor :x, :y, :angle, :lives, :velocity_x, :velocity_y
 
   def initialize(window)
     @window = window
-    @score, @lives = 0, 3
+    @lives = 3
     @image = Gosu::Image.new(window, 'assets/ship.png', false)
     @speed_modifier = 0.06
     warp

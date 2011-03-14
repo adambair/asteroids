@@ -2,7 +2,7 @@ class GameWindow < Gosu::Window
   WHITE = 0xffffffff
 
   def initialize
-    super(640, 480, false)
+    super(640, 480, true)
     # @background_image = Gosu::Image.new(self, "assets/background.png", true)
     @life_image = Gosu::Image.new(self, "assets/ship.png", false)
     @font = Gosu::Font.new(self, 'Inconsolata-dz', 24)

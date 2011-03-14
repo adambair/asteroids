@@ -12,6 +12,16 @@ A clone of Atari's 1979 hit, Asteroids.
 * Add flying saucer (large and small)
 * Add additional Asteroids graphics (random choice on spawn)
 * Perhaps move from image to primitives...
+* Wait to spawn - don't spawn into an asteroid (use a box to determine)
+* Add ship explosion animation (breaking into vectors)
+* Speed up small asteroids
+* Make ship graphic more accurate to the original
+* Dynamically center text 
+* Speed up smaller asteroids
+* Add streaking (like the classic vector arcade)
+* Add pulsating projectile (much brighter than everything else, more exciting - classic arcade)
+* Make ship bleed off speed (like the arcade)
+* Make projectile life distance based rather than game loop time
 
 == Contributions
 

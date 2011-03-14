@@ -108,10 +108,17 @@ class GameWindow < Gosu::Window
 
   def button_down(id)
     close if id == Gosu::KbQ
-
-    if id == Gosu::KbSpace
-      @projectiles << @player.shoot unless @projectiles.size >= 5
+    shoot if id == Gosu::KbSpace
+  end
+  
+  def shoot
+    if can_shoot?
+      @projectiles << @player.shoot
     end
+  end
+  
+  def can_shoot?
+     @game_in_progress && @projectiles.size < 5
   end
 
   def control_player

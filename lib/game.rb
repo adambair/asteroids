@@ -134,27 +134,19 @@ class GameWindow < Gosu::Window
   end
 
   def detect_collisions
-    @asteroids.each do |asteroid| 
-      if collision?(asteroid, @player)
+    @asteroids.each do |asteroid|      
+      if asteroid.collides_with?(@player)
         @player.kill
       end
-    end
-    @projectiles.each do |projectile| 
-      @asteroids.each do |asteroid|
-        if collision?(projectile, asteroid)
+
+      @projectiles.each do |projectile|
+        if asteroid.collides_with?(projectile)
           projectile.kill
           @player.score += asteroid.points
           @asteroids += asteroid.kill
-        end
+        end        
       end
     end
-  end
-
-  def collision?(object_1, object_2)
-    hitbox_1, hitbox_2 = object_1.hitbox, object_2.hitbox
-    common_x = hitbox_1[:x] & hitbox_2[:x]
-    common_y = hitbox_1[:y] & hitbox_2[:y]
-    common_x.size > 0 && common_y.size > 0 
   end
 
   def spawn_asteroids(count=3)

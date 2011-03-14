@@ -110,6 +110,12 @@ class GameWindow < Gosu::Window
     close if id == Gosu::KbQ
     shoot if id == Gosu::KbSpace
   end
+
+  def control_player
+    @player.turn_left  if button_down?(Gosu::KbLeft)
+    @player.turn_right if button_down?(Gosu::KbRight)
+    @player.accelerate if button_down?(Gosu::KbUp)
+  end
   
   def shoot
     if can_shoot?
@@ -119,18 +125,6 @@ class GameWindow < Gosu::Window
   
   def can_shoot?
      @game_in_progress && @projectiles.size < 5
-  end
-
-  def control_player
-    if button_down? Gosu::KbLeft
-      @player.turn_left
-    end
-    if button_down? Gosu::KbRight
-      @player.turn_right
-    end
-    if button_down? Gosu::KbUp
-      @player.accelerate
-    end
   end
 
   def detect_collisions

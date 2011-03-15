@@ -87,21 +87,26 @@ class GameWindow < Gosu::Window
   end
 
   def title_text
-    write "ASTEROIDS", 175, 120, 2.8, 2.8
-    write "press 's' to start", 210, 320
-    write "press 'q' to quit", 216, 345
+    center "ASTEROIDS", 120, 2.8
+    center "press 's' to start", 320
+    center "press 'q' to quit", 345
   end
 
   def game_over_text
-    write "GAME OVER", 200, 150, 2, 2
-    write "press 'r' to restart", 195, 320
-    write "press 'q' to quit", 210, 345
+    center "GAME OVER", 150, 2
+    center "press 'r' to restart", 320
+    center "press 'q' to quit", 345
   end
 
   def write text, x, y, factor_x = 1, factor_y = 1
     @font.draw(text, x, y, 50, factor_x, factor_y, Gosu::Color::WHITE)
   end
 
+  def center text, y, factor_x = 1 
+    x = (width - @font.text_width(text, factor_x)) / 2
+    write(text, x, y, factor_x, factor_x)
+  end
+  
   def draw_lives
     return unless @player.lives > 0
     x = 10

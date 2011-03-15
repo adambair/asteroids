@@ -34,19 +34,14 @@ class Asteroid
   end
 
   def fragment
-    return [] unless next_size
-    speed = next_size == 'large' ? 1.5 : 2
-    asteroids = Array.new(2) do
+    return [] if @size == 'small'
+
+    Array.new(2) do
       Asteroid.new(@window, :x => @x, 
                             :y => @y, 
-                            :size => next_size,
-                            :speed => rand(0)*speed+0.3) 
+                            :size => @size == 'large' ? 'medium' : 'small',
+                            :speed => rand(0)*2+0.3) 
     end
-  end
-
-  def next_size
-    return if @size == 'small'
-    @size == 'large' ? 'medium' : 'small'
   end
 
   def dead?

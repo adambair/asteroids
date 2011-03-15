@@ -5,15 +5,23 @@ class Asteroid
 
   def initialize(window, options = {})
     @window = window
-    @size = options[:size] || 'large'
+    options = defaults.merge(options)
+    @size = options[:size]
     @image = Gosu::Image.new(window, "assets/asteroid-#{@size}-1.png", false)
-    @x = options[:x] || rand(@window.width)
-    @y = options[:y] || rand(@window.height)
+    @x = options[:x]
+    @y = options[:y]
     @angle = rand(360)
-    @speed_modifier = options[:speed] || 0.7
+    @speed_modifier = options[:speed]
     @angular_velocity = (rand(0) - rand(0))/3
     @draw_angle = rand(360)
     @alive = true
+  end
+
+  def defaults
+    { :x     => rand(@window.width),
+      :y     => rand(@window.height),
+      :size  => 'large',
+      :speed => 0.7 }
   end
 
   def draw

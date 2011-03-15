@@ -53,10 +53,7 @@ class Asteroid
     !@alive
   end
   
-  def collides_with?(object)
-    hitbox_2 = object.hitbox
-    common_x = hitbox[:x] & hitbox_2[:x]
-    common_y = hitbox[:y] & hitbox_2[:y]
-    common_x.size > 0 && common_y.size > 0 
+  def collides_with?(obj)
+    Gosu::distance(@x, @y, obj.x, obj.y) <= radius
   end
 end

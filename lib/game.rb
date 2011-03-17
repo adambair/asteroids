@@ -89,13 +89,13 @@ class GameWindow < Gosu::Window
   def title_text
     center "ASTEROIDS", 120, 2.8
     center "press 's' to start", 320
-    center "press 'q' to quit", 345
+    center "press 'q' or 'esc' to quit", 345
   end
 
   def game_over_text
     center "GAME OVER", 150, 2
     center "press 'r' to restart", 320
-    center "press 'q' to quit", 345
+    center "press 'q' or 'esc' to quit", 345
   end
 
   def write text, x, y, factor_x = 1, factor_y = 1
@@ -117,7 +117,7 @@ class GameWindow < Gosu::Window
   end
 
   def button_down(id)
-    close if id == Gosu::KbQ
+    close if id == Gosu::KbQ || id == Gosu::KbEscape
     shoot if id == Gosu::KbSpace
   end
 

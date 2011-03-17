@@ -1,6 +1,8 @@
 class GameWindow < Gosu::Window
-  WHITE = 0xffffffff
-
+  POINTS = { 'large'  => 20,
+             'medium' => 50,
+             'small'  => 100 }
+  
   def initialize
     super(1024, 768, false)
     # @background_image = Gosu::Image.new(self, "assets/background.png", true)
@@ -20,6 +22,7 @@ class GameWindow < Gosu::Window
   def setup_game
     @player = Player.new(self)
     @level = 1
+    @score = 0
     @asteroid_count = 3
     @asteroids = spawn_asteroids(@asteroid_count)
     @projectiles = []
@@ -76,25 +79,34 @@ class GameWindow < Gosu::Window
   end 
 
   def score_text
-    @font.draw(@player.score, 10, 10, 50, 1.0, 1.0, WHITE)
+    write @score, 10, 10
   end
 
   def level_text
-    @font.draw(@level, 610, 10, 50, 1.0, 1.0, WHITE)
+    write @level, 610, 10
   end
 
   def title_text
-    @font.draw("ASTEROIDS", 175, 120, 50, 2.8, 2.8, WHITE)
-    @font.draw("press 's' to start", 210, 320, 50, 1, 1, WHITE)
-    @font.draw("press 'q' to quit", 216, 345, 50, 1, 1, WHITE)
+    center "ASTEROIDS", 120, 2.8
+    center "press 's' to start", 320
+    center "press 'q' to quit", 345
   end
 
   def game_over_text
-    @font.draw("GAME OVER", 200, 150, 50, 2.0, 2.0, WHITE)
-    @font.draw("press 'r' to restart", 195, 320, 50, 1, 1, WHITE)
-    @font.draw("press 'q' to quit", 210, 345, 50, 1, 1, WHITE)
+    center "GAME OVER", 150, 2
+    center "press 'r' to restart", 320
+    center "press 'q' to quit", 345
   end
 
+  def write text, x, y, factor_x = 1, factor_y = 1
+    @font.draw(text, x, y, 50, factor_x, factor_y, Gosu::Color::WHITE)
+  end
+
+  def center text, y, factor_x = 1 
+    x = (width - @font.text_width(text, factor_x)) / 2
+    write(text, x, y, factor_x, factor_x)
+  end
+  
   def draw_lives
     return unless @player.lives > 0
     x = 10
@@ -106,46 +118,39 @@ class GameWindow < Gosu::Window
 
   def button_down(id)
     close if id == Gosu::KbQ
-
-    if id == Gosu::KbSpace
-      @projectiles << @player.shoot unless @projectiles.size >= 5
-    end
+    shoot if id == Gosu::KbSpace
   end
 
   def control_player
-    if button_down? Gosu::KbLeft
-      @player.turn_left
+    @player.turn_left  if button_down?(Gosu::KbLeft)
+    @player.turn_right if button_down?(Gosu::KbRight)
+    @player.accelerate if button_down?(Gosu::KbUp)
+  end
+  
+  def shoot
+    if can_shoot?
+      @projectiles << @player.shoot
     end
-    if button_down? Gosu::KbRight
-      @player.turn_right
-    end
-    if button_down? Gosu::KbUp
-      @player.accelerate
-    end
+  end
+  
+  def can_shoot?
+     @game_in_progress && @projectiles.size < 5
   end
 
   def detect_collisions
-    @asteroids.each do |asteroid| 
-      if collision?(asteroid, @player)
+    @asteroids.each do |asteroid|      
+      if asteroid.collides_with?(@player)
         @player.kill
       end
-    end
-    @projectiles.each do |projectile| 
-      @asteroids.each do |asteroid|
-        if collision?(projectile, asteroid)
+
+      @projectiles.each do |projectile|
+        if asteroid.collides_with?(projectile)
           projectile.kill
-          @player.score += asteroid.points
+          @score += POINTS[asteroid.size]
           @asteroids += asteroid.kill
-        end
+        end        
       end
     end
-  end
-
-  def collision?(object_1, object_2)
-    hitbox_1, hitbox_2 = object_1.hitbox, object_2.hitbox
-    common_x = hitbox_1[:x] & hitbox_2[:x]
-    common_y = hitbox_1[:y] & hitbox_2[:y]
-    common_x.size > 0 && common_y.size > 0 
   end
 
   def spawn_asteroids(count=3)

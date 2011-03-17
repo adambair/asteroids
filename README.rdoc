@@ -16,7 +16,7 @@ A clone of Atari's 1979 hit, Asteroids.
 * Add ship explosion animation (breaking into vectors)
 * Speed up small asteroids
 * Make ship graphic more accurate to the original
-* Dynamically center text 
+* Dynamically center text - Done
 * Speed up smaller asteroids
 * Add streaking (like the classic vector arcade)
 * Add pulsating projectile (much brighter than everything else, more exciting - classic arcade)

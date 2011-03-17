@@ -1,25 +1,31 @@
 class Asteroid
   include Collidable
 
+  attr_reader :size
+
   def initialize(window, options = {})
     @window = window
-    @size = options[:size] || 'large'
+    options = defaults.merge(options)
+    @size = options[:size]
     @image = Gosu::Image.new(window, "assets/asteroid-#{@size}-1.png", false)
-    @x = options[:x] || rand(@window.width)
-    @y = options[:y] || rand(@window.height)
+    @x = options[:x]
+    @y = options[:y]
     @angle = rand(360)
-    @speed_modifier = options[:speed] || 0.7
+    @speed_modifier = options[:speed]
     @angular_velocity = (rand(0) - rand(0))/3
     @draw_angle = rand(360)
     @alive = true
   end
 
-  def draw
-    @image.draw_rot(@x, @y, 0, @draw_angle) 
+  def defaults
+    { :x     => rand(@window.width),
+      :y     => rand(@window.height),
+      :size  => 'large',
+      :speed => 0.7 }
   end
 
-  def points
-    {'large' => 20, 'medium' => 50, 'small' => 100}[@size]
+  def draw
+    @image.draw_rot(@x, @y, 0, @draw_angle) 
   end
 
   def move
@@ -36,22 +42,21 @@ class Asteroid
   end
 
   def fragment
-    return [] unless next_size
-    speed = next_size == 'large' ? 1.5 : 2
-    asteroids = Array.new(2) do
+    return [] if @size == 'small'
+
+    Array.new(2) do
       Asteroid.new(@window, :x => @x, 
                             :y => @y, 
-                            :size => next_size,
-                            :speed => rand(0)*speed+0.3) 
+                            :size => @size == 'large' ? 'medium' : 'small',
+                            :speed => rand(0)*2+0.3) 
     end
-  end
-
-  def next_size
-    return if @size == 'small'
-    @size == 'large' ? 'medium' : 'small'
   end
 
   def dead?
     !@alive
+  end
+  
+  def collides_with?(obj)
+    Gosu::distance(@x, @y, obj.x, obj.y) <= radius
   end
 end

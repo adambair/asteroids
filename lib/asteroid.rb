@@ -21,7 +21,7 @@ class Asteroid
     { :x     => rand(@window.width),
       :y     => rand(@window.height),
       :size  => 'large',
-      :speed => 0.7 }
+      :speed => rand+0.5 }
   end
 
   def draw
@@ -43,13 +43,15 @@ class Asteroid
 
   def fragment
     return [] if @size == 'small'
+    size  = @size == 'large' ? 'medium' : 'small'
+    defaults = {:x => @x, :y => @y, :size => size }
+    [ Asteroid.new(@window, defaults.merge(:speed => fragment_speed(size))),
+      Asteroid.new(@window, defaults.merge(:speed => fragment_speed(size))) ]
+  end
 
-    Array.new(2) do
-      Asteroid.new(@window, :x => @x, 
-                            :y => @y, 
-                            :size => @size == 'large' ? 'medium' : 'small',
-                            :speed => rand(0)*2+0.3) 
-    end
+  def fragment_speed(size)
+    base_speed = size == 'medium' ? rand+1+rand : rand+1.5+rand
+    base_speed*(rand(0)+0.5)
   end
 
   def dead?

@@ -37,15 +37,9 @@ class Player
     if @acceleration
       @acceleration = false
     else
-      @velocity_x *= 0.99
-      @velocity_y *= 0.99
+      @velocity_x *= 0.991
+      @velocity_y *= 0.991
     end
-    # @x += @velocity_x
-    # @y += @velocity_y
-    # @x %= @window.width
-    # @y %= @window.height
-    # @velocity_x *= 1
-    # @velocity_y *= 1
   end
 
   def kill
@@ -60,7 +54,8 @@ class Player
   end
   
   def warp
-    @velocity_x = @velocity_y = @angle = 0.0
+    @velocity_x = @velocity_y = 0.0
+    @angle = rand(360)
     @x, @y = @window.width/2, @window.height/2
     @alive = true
   end

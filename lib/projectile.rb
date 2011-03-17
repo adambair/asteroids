@@ -12,8 +12,7 @@ class Projectile
     @origin_vel_x, @origin_vel_y = @origin_object.velocity_x.abs, @origin_object.velocity_y.abs
 
     @time_in_existence, @max_time = 0, 70
-    @distance_traveled, @max_distance = 0, 150
-    @speed_modifier = 5.5
+    @speed_modifier = 6
     @alive = true
   end
 

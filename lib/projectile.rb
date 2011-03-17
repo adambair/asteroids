@@ -9,6 +9,8 @@ class Projectile
     @x, @y = @origin_object.x, @origin_object.y
     @angle = @origin_object.angle
 
+    @origin_vel_x, @origin_vel_y = @origin_object.velocity_x.abs, @origin_object.velocity_y.abs
+
     @time_in_existence, @max_time = 0, 70
     @speed_modifier = 4
     @alive = true
@@ -42,10 +44,10 @@ class Projectile
     end
 
     def offset_x
-      Gosu::offset_x(@angle, @speed_modifier + @origin_object.velocity_x.abs)
+      Gosu::offset_x(@angle, @speed_modifier + @origin_vel_x)
     end
 
     def offset_y
-      Gosu::offset_y(180+@angle, @speed_modifier + @origin_object.velocity_y.abs)
+      Gosu::offset_y(180+@angle, @speed_modifier + @origin_vel_y)
     end
 end

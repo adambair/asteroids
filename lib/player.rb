@@ -1,20 +1,15 @@
-class Player
+class Player < GameObject
   include Collidable
 
   attr_accessor :x, :y, :angle, :lives, :velocity_x, :velocity_y
 
   def initialize(window)
-    @window = window
+    super(window)
     @lives = 3
-    @image = Gosu::Image.new(window, 'assets/ship.png', false)
     @speed_modifier = 0.07
     warp
     @explosion = Gosu::Sample.new(window, 'assets/explosion.wav')
     @laser = Gosu::Sample.new(window, 'assets/laser.wav')
-  end
-
-  def draw
-    @image.draw_rot(@x, @y, 0, @angle)
   end
 
   def turn_left
@@ -34,8 +29,7 @@ class Player
   def move
     @x += @velocity_x
     @y += @velocity_y
-    @x %= @window.width
-    @y %= @window.height
+    fix_coordinates
     if @acceleration
       @acceleration = false
     else
@@ -44,16 +38,11 @@ class Player
     end
   end
 
-  def kill
+  def after_kill
     @explosion.play
     @lives -= 1
-    @alive = false
     return if @lives <= 0
     warp
-  end
-
-  def dead?
-    !@alive
   end
   
   def warp

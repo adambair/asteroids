@@ -4,9 +4,8 @@ class GameWindow < Gosu::Window
              'small'  => 100 }
   
   def initialize
-    super(800, 600, true)
-    # @background_image = Gosu::Image.new(self, "assets/background.png", true)
-    @life_image = Gosu::Image.new(self, "assets/ship.png", false)
+    super(800, 600, false)
+    @life_image = Gosu::Image.new(self, "assets/player.png", false)
     @font = Gosu::Font.new(self, 'Inconsolata-dz', 24)
     @game_in_progress = false
     title_screen
@@ -39,7 +38,7 @@ class GameWindow < Gosu::Window
       title_screen unless @game_in_progress == false
       @game_in_progress = false
     end
-    
+
     @asteroids.each{|asteroid| asteroid.move}
     @asteroids.reject!{|asteroid| asteroid.dead?}
 
@@ -110,7 +109,7 @@ class GameWindow < Gosu::Window
     x = (width - @font.text_width(text, factor_x)) / 2
     write(text, x, y, factor_x, factor_x)
   end
-  
+
   def draw_lives
     return unless @player.lives > 0
     x = 10
@@ -130,13 +129,13 @@ class GameWindow < Gosu::Window
     @player.turn_right if button_down?(Gosu::KbRight)
     @player.accelerate if button_down?(Gosu::KbUp)
   end
-  
+
   def shoot
     if can_shoot?
       @projectiles << @player.shoot
     end
   end
-  
+
   def can_shoot?
      @game_in_progress && @projectiles.size < 5
   end
@@ -153,7 +152,7 @@ class GameWindow < Gosu::Window
           30.times {@particles << Particle.new(self, asteroid)}
           @score += POINTS[asteroid.size]
           @asteroids += asteroid.kill
-        end        
+        end
       end
     end
   end

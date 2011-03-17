@@ -7,7 +7,7 @@ A clone of Atari's 1979 hit, Asteroids.
 * Add session high score in the top/center
 * Add local high score list (3 initials + score)
 * Add blinking engine graphic
-* Add laser sound
+* Add laser sound - Done
 * Add 3 asteroid breaking sounds
 * Add flying saucer (large and small)
 * Add additional Asteroids graphics (random choice on spawn)

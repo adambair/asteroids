@@ -9,6 +9,8 @@ class Player
     @image = Gosu::Image.new(window, 'assets/ship.png', false)
     @speed_modifier = 0.07
     warp
+    @explosion = Gosu::Sample.new(window, 'assets/explosion.wav')
+    @laser = Gosu::Sample.new(window, 'assets/laser.wav')
   end
 
   def draw
@@ -43,6 +45,7 @@ class Player
   end
 
   def kill
+    @explosion.play
     @lives -= 1
     @alive = false
     return if @lives <= 0
@@ -61,7 +64,10 @@ class Player
   end
 
   def shoot
-    Projectile.new(@window, self) unless dead?
+    unless dead?
+      @laser.play
+      Projectile.new(@window, self)
+    end
   end
 end
 

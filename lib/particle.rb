@@ -1,7 +1,7 @@
 class Particle
   def initialize(window, origin_object)
     @window = window
-    @image = Gosu::Image.new(window, 'assets/projectile.png', false)
+    @image = Gosu::Image.new(window, 'assets/particle.png', false)
 
     @origin_object = origin_object
     @x, @y = @origin_object.x-rand(10), @origin_object.y-rand(10)

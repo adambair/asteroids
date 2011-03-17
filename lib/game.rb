@@ -25,7 +25,7 @@ class GameWindow < Gosu::Window
     @score = 0
     @asteroid_count = 3
     @asteroids = spawn_asteroids(@asteroid_count)
-    @projectiles = []
+    @projectiles, @particles = [], []
     @game_in_progress = true
   end
 
@@ -53,6 +53,9 @@ class GameWindow < Gosu::Window
     @projectiles.each{|projectile| projectile.move}
     @projectiles.reject!{|projectile| projectile.dead?}
 
+    @particles.each{|particle| particle.move}
+    @particles.reject!{|particle| particle.dead?}
+
     detect_collisions
     next_level if @asteroids.size == 0 
   end
@@ -75,6 +78,7 @@ class GameWindow < Gosu::Window
     return if @player.dead?
     @player.draw
     @projectiles.each{|projectile| projectile.draw}
+    @particles.each{|particle| particle.draw}
     draw_lives
   end 
 
@@ -146,6 +150,7 @@ class GameWindow < Gosu::Window
       @projectiles.each do |projectile|
         if asteroid.collides_with?(projectile)
           projectile.kill
+          30.times {@particles << Particle.new(self, asteroid)}
           @score += POINTS[asteroid.size]
           @asteroids += asteroid.kill
         end        

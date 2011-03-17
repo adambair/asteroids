@@ -5,6 +5,7 @@ require 'lib/collidable'
 require 'lib/player'
 require 'lib/asteroid'
 require 'lib/projectile'
+require 'lib/particle'
 require 'lib/game'
 
 window = GameWindow.new

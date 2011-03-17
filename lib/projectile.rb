@@ -14,7 +14,6 @@ class Projectile
     @time_in_existence, @max_time = 0, 70
     @speed_modifier = 6
     @alive = true
-    @hit = Gosu::Sample.new(window, 'assets/hit.wav')
   end
 
   def draw
@@ -30,7 +29,6 @@ class Projectile
   end
 
   def kill
-    @hit.play
     @alive = false
   end
 

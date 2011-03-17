@@ -15,6 +15,7 @@ class Asteroid
     @angular_velocity = (rand(0) - rand(0))/3
     @draw_angle = rand(360)
     @alive = true
+    @hit = Gosu::Sample.new(window, 'assets/hit.wav')
   end
 
   def defaults
@@ -37,6 +38,7 @@ class Asteroid
   end
 
   def kill
+    @hit.play
     @alive = false
     fragment
   end

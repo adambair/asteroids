@@ -36,10 +36,9 @@ class GameWindow < Gosu::Window
   # Prepare Title Screen
   #
   def title_screen
-    @asteroids = spawn_asteroids(4)
-    @asteroids += @asteroids[0].kill
-    @asteroids += @asteroids[1].kill
-    @asteroids += @asteroids.last.kill
+    @asteroids = spawn_asteroids(2)
+    @asteroids += spawn_asteroids(3, 'medium')
+    @asteroids += spawn_asteroids(2, 'small')
   end
 
   # Prepare Game Screen

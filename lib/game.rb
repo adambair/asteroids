@@ -120,7 +120,7 @@ class GameWindow < Gosu::Window
       @projectiles.each do |projectile|
         if asteroid.collides_with?(projectile)
           projectile.kill
-          30.times {@particles << Particle.new(self, asteroid)}
+          spawn_particles(asteroid)
           @score += POINTS[asteroid.size]
           @asteroids += asteroid.kill
         end
@@ -132,6 +132,10 @@ class GameWindow < Gosu::Window
     Array.new(count) { Asteroid.new(self, :size => size) }
   end
 
+  def spawn_particles(origin, count=30)
+    @particles += Array.new(count) { Particle.new(self, origin) }
+  end
+  
   # Render
   #
   def draw
@@ -168,11 +172,8 @@ class GameWindow < Gosu::Window
   end
 
   def draw_lives
-    return unless @player.lives > 0
-    x = 10
-    @player.lives.times do 
-      @life_image.draw(x, 40, 0)
-      x += 20
+    @player.lives.times do |i|
+      @life_image.draw(10 + i * 20, 40, 0)
     end
   end
 

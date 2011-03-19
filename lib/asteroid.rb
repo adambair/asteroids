@@ -52,7 +52,7 @@ class Asteroid < GameObject
   end
 
   def fragment_speed(size)
-    base_speed = size == 'medium' ? rand+1+rand : rand+1.5+rand
+    base_speed = size == 'medium' ? rand+1+rand : rand+2+rand
     base_speed*(rand(0)+0.5)
   end
   

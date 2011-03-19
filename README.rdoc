@@ -26,7 +26,7 @@ A clone of Atari's 1979 hit, Asteroids.
 == Contributions
 
 * Ariel H. Pillet - Refactorings, sounds, and more
-* Ben Scheirman   - Game programming advice, improved hitboxes, particles v2, rotation
+* Ben Scheirman   - Game programming advice, improved hitboxes, particles v2, rotation (and fixes I've yet to merge)
 
 == History
 

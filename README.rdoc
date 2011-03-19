@@ -7,26 +7,26 @@ A clone of Atari's 1979 hit, Asteroids.
 * Add session high score in the top/center
 * Add local high score list (3 initials + score)
 * Add blinking engine graphic
-* Add laser sound - Done
-* Add 3 asteroid breaking sounds
+* Add 3 asteroid breaking sounds (large is deep, medium less so, small not)
 * Add flying saucer (large and small)
 * Add additional Asteroids graphics (random choice on spawn)
 * Perhaps move from image to primitives...
 * Wait to spawn - don't spawn into an asteroid (use a box to determine)
 * Add ship explosion animation (breaking into vectors)
-* Speed up small asteroids
-* Make ship graphic more accurate to the original
-* Dynamically center text - Done
-* Speed up smaller asteroids
 * Add streaking (like the classic vector arcade)
 * Add pulsating projectile (much brighter than everything else, more exciting - classic arcade)
 * Make projectile life distance based rather than game loop time
-* Graphics should be smaller
+* Flickering engine graphic and sound
+* Add right and left aligned text (score/level/etc)
+* Make menus more appropriate to the original
+* Fix hitbox on player's ship - overlaps should not occur
+* Add music sounds that increase in frequency to induce tension in the player
+* Add command line option for screen resolution and windowed/fullscreen
 
 == Contributions
 
+* Ariel H. Pillet - Refactorings, sounds, and more
 * Ben Scheirman   - Game programming advice, improved hitboxes, particles v2, rotation
-* Ariel H. Pillet - Refactorings
 
 == History
 

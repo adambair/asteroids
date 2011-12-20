@@ -4,7 +4,7 @@ class GameWindow < Gosu::Window
              'small'  => 100 }
 
   def initialize
-    super(800, 600, true)
+    super(800, 600, false)
     @life_image = Gosu::Image.new(self, "assets/player.png", false)
     @font = Gosu::Font.new(self, 'Inconsolata-dz', 24)
     @state = :title
